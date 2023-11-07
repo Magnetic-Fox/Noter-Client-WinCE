@@ -5,7 +5,6 @@
 backup/*
 lib/*
 locales/*
-project1.ico
 
 # Compiled resources
 *.res
