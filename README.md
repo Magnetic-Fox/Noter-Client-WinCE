@@ -34,7 +34,7 @@ Depending on the platform for which the program was compiled, it was tested on:
 
 * Windows Mobile 6.5 (ARM version)
 * Windows 2000/XP (x86 version)
-* Linux Mint/macOS Monterey (x64 version)
+* Linux Mint/macOS Monterey (Wine - x64 version)
 
 None of the version above caused any problems on the mentioned OS-es.
 
