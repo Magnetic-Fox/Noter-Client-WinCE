@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, ExtCtrls, Buttons, Menus, httpsend, synacode, fpjson, jsonparser,
   Dos, Windows, synacrypt, IniFiles, Clipbrd, CheckLst, Unit2, noter_constants,
-  stringtable_consts
+  stringtable_consts, bzip2stream
   {$IFDEF LCLWinCE}
   , sipapi
   {$ENDIF}
@@ -447,7 +447,7 @@ var Form1: TForm1;
     userAgent, server, share, username, password, iniFile: utf8string;
     ini: TIniFile;
     settingsLoaded, newSize, noteChanged, userChanged, serverChanged,
-        newIDSet: boolean;
+        newIDSet, requestCompression: boolean;
     selectedNoteIndex, newID, FormSize, lastCode: integer;
     tempNote: note;
     tempUser: user;
@@ -646,6 +646,10 @@ var test: THTTPSend;
     urldata: utf8string;
     ss: TStringStream;
     res: utf8string;
+    isBZCompressed: boolean;
+    unbzip: TDecompressBzip2Stream;
+    buff: array[0..16383] of byte;
+    count: integer;
 begin
      test:=THTTPSend.Create;
      test.Timeout:=5000;
@@ -659,14 +663,28 @@ begin
      if(length(entry)>0) then urldata:=urldata+'&entry='+EncodeURLElement(entry);
      if(length(newPassword)>0) then urldata:=urldata+'&newPassword='+EncodeURLElement(newPassword);
      if(noteID>0) then urldata:=urldata+'&noteID='+EncodeURLElement(IntToStr(noteID));
+     if(requestCompression) then urldata:=urldata+'&compress=yes';
      test.Document.Write(Pointer(urldata)^,Length(urldata));
      test.UserAgent:=userAgent;
      test.HTTPMethod('POST','http://'+server+'/'+share+'/index.php');
      res:='';
      if test.MimeType='application/json' then
      begin
+          isBZCompressed:=(test.Headers.IndexOf('X-BZ-Compressed: yes')<>-1);
           ss:=TStringStream.Create('');
-          ss.CopyFrom(test.Document,0);
+          if isBZCompressed then
+          begin
+               unbzip:=TDecompressBzip2Stream.Create(test.Document);
+               Repeat
+                    count:=unbzip.Read(buff,16384);
+                    if(count>0) then ss.Write(buff,count);
+               Until (count=0);
+               unbzip.Free;
+          end
+          else
+          begin
+               ss.CopyFrom(test.Document,0);
+          end;
           res:=ss.DataString;
           ss.Free;
      end;
@@ -1163,6 +1181,7 @@ begin
      begin
           server:=ini.ReadString('server','address','');
           share:=ini.ReadString('server','share','');
+          requestCompression:=ini.ReadBool('server','compression',true);
           Edit1.Text:=server;
           Edit2.Text:=share;
      end;

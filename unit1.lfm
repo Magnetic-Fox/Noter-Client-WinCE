@@ -44,7 +44,7 @@ object Form1: TForm1
         Left = 8
         Height = 17
         Top = 236
-        Width = 73
+        Width = 71
         Caption = 'Zarejestruj'
         TabOrder = 4
       end
@@ -1440,7 +1440,7 @@ object Form1: TForm1
     Width = 134
     AutoSize = False
     BidiMode = bdRightToLeft
-    Caption = '©2023 Magnetic-Fox'
+    Caption = '©2024 Magnetic-Fox'
     Enabled = False
     ParentBidiMode = False
     ParentColor = False
