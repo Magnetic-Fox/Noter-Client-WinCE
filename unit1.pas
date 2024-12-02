@@ -207,6 +207,7 @@ Type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormWindowStateChange(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure Label25Click(Sender: TObject);
     procedure Label25MouseDown(Sender: TObject; Button: TMouseButton;
@@ -1958,6 +1959,18 @@ begin
           Label25.Top:=Form1.Height-15;
      end
      else Notebook1.Height:=Form1.Height;
+end;
+
+procedure TForm1.FormWindowStateChange(Sender: TObject);
+begin
+     {$IFDEF LCLWinCE}
+     If ((Notebook1.PageIndex=0) or (Notebook1.PageIndex=1)
+        or (Notebook1.PageIndex=3) or (Notebook1.PageIndex=11))
+        and (Form1.WindowState=wsMinimized) then
+     begin
+          Form1.Close();
+     end;
+     {$ENDIF}
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
