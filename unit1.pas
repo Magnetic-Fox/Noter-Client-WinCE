@@ -140,6 +140,7 @@ type
     Button9: TButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
     CheckListBox1: TCheckListBox;
     Edit1: TEdit;
     Edit10: TEdit;
@@ -308,6 +309,7 @@ type
     procedure Button8Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
     procedure CheckBox2Change(Sender: TObject);
+    procedure CheckBox3Change(Sender: TObject);
     procedure Edit10Enter(Sender: TObject);
     procedure Edit10Exit(Sender: TObject);
     procedure Edit11Change(Sender: TObject);
@@ -648,7 +650,7 @@ var test: THTTPSend;
     res: utf8string;
     isBZCompressed: boolean;
     unbzip: TDecompressBzip2Stream;
-    buff: array[0..16383] of byte;
+    buff: array[0..65535] of byte;
     count: integer;
 begin
      test:=THTTPSend.Create;
@@ -676,7 +678,7 @@ begin
           begin
                unbzip:=TDecompressBzip2Stream.Create(test.Document);
                Repeat
-                    count:=unbzip.Read(buff,16384);
+                    count:=unbzip.Read(buff,65536);
                     if(count>0) then ss.Write(buff,count);
                Until (count=0);
                unbzip.Free;
@@ -1031,6 +1033,7 @@ begin
      Form1.Label60.Caption:=      LoadResourceString(Lib, LABEL_TERMSPART2);
      Form1.Label61.Caption:=      LoadResourceString(Lib, LABEL_PRIVACYPOLICY);
      Form1.Label62.Caption:=      LoadResourceString(Lib, LABEL_PRIVACYTEXT, 1900);
+     Form1.CheckBox3.Caption:=    LoadResourceString(Lib, LABEL_COMPRESSION);
 
      noQuestions:=                LoadResourceString(Lib, LABEL_NOQUESTIONS);
      someQuestions:=              LoadResourceString(Lib, LABEL_SOMEQUESTIONS);
@@ -1181,7 +1184,7 @@ begin
      begin
           server:=ini.ReadString('server','address','');
           share:=ini.ReadString('server','share','');
-          requestCompression:=ini.ReadBool('server','compression',true);
+          requestCompression:=ini.ReadBool('server','compression',false);
           Edit1.Text:=server;
           Edit2.Text:=share;
      end;
@@ -1845,6 +1848,12 @@ begin
           If CheckBox2.Checked then Button12.Caption:=buttonAdd
              else Button12.Caption:=buttonUpdate;
      end;
+end;
+
+procedure TForm1.CheckBox3Change(Sender: TObject);
+begin
+     requestCompression:=CheckBox3.Checked;
+     ini.WriteBool('server','compression',requestCompression);
 end;
 
 procedure TForm1.Edit10Enter(Sender: TObject);
@@ -2721,9 +2730,10 @@ procedure TForm1.Page8BeforeShow(ASender: TObject; ANewPage: TPage;
 var data: utf8string;
     atta: att;
 begin
-     Form1.Constraints.MinHeight:=200;
+     Form1.Constraints.MinHeight:=216;
      data:=Post('info',username,password);
      getAnswerInfo(data,atta);
+     CheckBox3.Checked:=requestCompression;
      if getServer(data,tempServer) then
      begin
           Label53.Caption:=server;

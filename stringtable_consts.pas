@@ -137,6 +137,7 @@ const LABEL_ASKWANTLOGOUT=          469;
 const LABEL_LANGLIBINFO=            470;
 const LABEL_LANGLIBAUTHOR=          471;
 const LABEL_LANGLIBDATE=            472;
+const LABEL_COMPRESSION=            473;
 
 { Button section }
 

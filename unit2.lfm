@@ -106,7 +106,7 @@ object Form2: TForm2
     Width = 224
     Alignment = taRightJustify
     AutoSize = False
-    Caption = '05.11.2021 - 01.12.2024'
+    Caption = '05.11.2021 - 02.12.2024'
     ParentColor = False
   end
   object Label8: TLabel
@@ -116,7 +116,7 @@ object Form2: TForm2
     Width = 224
     Alignment = taCenter
     AutoSize = False
-    Caption = '©2023 Bartłomiej "Magnetic-Fox" Węgrzyn!'
+    Caption = '©2024 Bartłomiej "Magnetic-Fox" Węgrzyn!'
     Font.CharSet = 4
     ParentColor = False
     ParentFont = False

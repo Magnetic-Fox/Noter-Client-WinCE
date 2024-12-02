@@ -755,7 +755,7 @@ object Form1: TForm1
       object Button16: TButton
         Left = 0
         Height = 16
-        Top = 168
+        Top = 184
         Width = 80
         Caption = 'Zmień serwer'
         OnClick = Button16Click
@@ -827,11 +827,21 @@ object Form1: TForm1
       object Button30: TButton
         Left = 80
         Height = 16
-        Top = 168
+        Top = 184
         Width = 80
         Caption = 'Wróć'
         OnClick = Button30Click
         TabOrder = 1
+      end
+      object CheckBox3: TCheckBox
+        Left = 0
+        Height = 17
+        Top = 160
+        Width = 240
+        AutoSize = False
+        Caption = 'Oczekuj kompresji'
+        OnChange = CheckBox3Change
+        TabOrder = 2
       end
     end
     object Page9: TPage
@@ -1438,8 +1448,8 @@ object Form1: TForm1
     Height = 13
     Top = 253
     Width = 134
+    Alignment = taRightJustify
     AutoSize = False
-    BidiMode = bdRightToLeft
     Caption = '©2024 Magnetic-Fox'
     Enabled = False
     ParentBidiMode = False
