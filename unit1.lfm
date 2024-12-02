@@ -1729,11 +1729,4 @@ object Form1: TForm1
     left = 192
     top = 24
   end
-  object Timer2: TTimer
-    Enabled = False
-    Interval = 50
-    OnTimer = Timer2Timer
-    left = 192
-    top = 24
-  end
 end

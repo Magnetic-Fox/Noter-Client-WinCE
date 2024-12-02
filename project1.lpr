@@ -24,7 +24,7 @@ Begin
      existingWindow:=windows.FindWindowW(nil,PWideChar('Noter Client'));
      If existingWindow<>0 then
      Begin
-          windows.SendMessageW(existingWindow,windows.WM_USER,1,0);
+          windows.SetForegroundWindow(existingWindow or 1);
           Exit;
      End;
      Application.Title:='Noter Client';

@@ -75,7 +75,6 @@ Function getNote(input: utf8string; var output: note): boolean;
 Function getServer(input: utf8string; var output: serverInfo): boolean;
 Function getNewID(input: utf8string; var newID: integer): boolean;
 Procedure changeIconAndLastCode(code: integer);
-Procedure bringToFront;
 Function LoadResourceString(var Lib: THandle; Index: longint; maxBuffer: longint = 1024): utf8string;
 Procedure LoadStringTable(var Lib: THandle);
 Procedure loadLocaleStrings(libName: {$IFDEF LCLWinCE}widestring{$ELSE}string{$ENDIF});
@@ -120,7 +119,7 @@ Type
         Page11, Page12, Page13, Page14, Page15: TPage;
     PopupMenu1, PopupMenu2, PopupMenu3: TPopupMenu;
     ScrollBox1: TScrollBox;
-    Timer1, Timer2: TTimer;
+    Timer1: TTimer;
 
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -282,7 +281,6 @@ Type
     procedure PopupMenu3Popup(Sender: TObject);
     procedure ScrollBox1Resize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure Timer2Timer(Sender: TObject);
   private
     { private declarations }
   public
@@ -338,9 +336,22 @@ Implementation
 { TForm1 }
 
 {$IFDEF LCLWinCE}
-Function wndCallBack(Ahwnd: HWND; uMsg: UINT; wParam: WParam; lParam: LParam): LRESULT; stdcall;
+Procedure setWindowSize;
 var x: SIPInfo;
-    zw:widestring;
+begin
+     system.FillChar(x,sizeof(x),0);
+     x.cbSize:=sizeof(x);
+     If SipGetInfo(Addr(x)) then
+     begin
+          If ((x.fdwFlags and 1)=1) then
+             Form1.Height:=FormSize-(x.rcSipRect.Bottom-x.rcSipRect.Top)
+          else
+             Form1.Height:=FormSize;
+     end;
+end;
+
+Function wndCallBack(Ahwnd: HWND; uMsg: UINT; wParam: WParam; lParam: LParam): LRESULT; stdcall;
+var zw:widestring;
     z: PWideChar;
     i: integer;
 begin
@@ -348,15 +359,7 @@ begin
      begin
           If wParam=SPI_SETSIPINFO then
           begin
-               system.FillChar(x,sizeof(x),0);
-               x.cbSize:=sizeof(x);
-               If SipGetInfo(Addr(x)) then
-               begin
-                    If ((x.fdwFlags and 1)=1) then
-                       Form1.Height:=FormSize-(x.rcSipRect.Bottom-x.rcSipRect.Top)
-                    else
-                       Form1.Height:=FormSize;
-               end;
+               setWindowSize;
           end
           else
           begin
@@ -396,10 +399,6 @@ begin
                CreateProcess('peghelp.exe',z,nil,nil,false,0,nil,nil,nil,nil);
           end
           else Error(errorNoHelpFile);
-     end
-     else if uMsg=WM_USER then
-     begin
-          If wParam=1 then Form1.Timer2.Enabled:=true;
      end;
      Result:=CallWindowProc(PrevWndProc,Ahwnd,uMsg,WParam,LParam);
 end;
@@ -758,13 +757,6 @@ begin
      If code=emptyImage then imgCode:=0
         else if code=connecting then imgCode:=4;
      Form1.ImageList1.StretchDraw(Form1.Image1.Canvas,imgCode,Form1.Image1.ClientRect);
-end;
-
-Procedure bringToFront;
-begin
-     Application.Minimize;
-     Application.Restore;
-     Application.BringToFront;
 end;
 
 Function LoadResourceString(var Lib: THandle; Index: longint; maxBuffer: longint = 1024): utf8string;
@@ -2020,6 +2012,9 @@ end;
 procedure TForm1.Label25Click(Sender: TObject);
 begin
      Form2.ShowModal;
+     {$IFDEF LCLWinCE}
+     setWindowSize;
+     {$ENDIF}
 end;
 
 procedure TForm1.Label25MouseDown(Sender: TObject; Button: TMouseButton;
@@ -2764,12 +2759,6 @@ begin
      {$IFDEF LCLWinCE}
      CloseSIPWhenNecessary;
      {$ENDIF}
-end;
-
-procedure TForm1.Timer2Timer(Sender: TObject);
-begin
-     Timer2.Enabled:=false;
-     bringToFront;
 end;
 
 End.
