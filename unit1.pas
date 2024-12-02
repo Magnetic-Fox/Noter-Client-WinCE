@@ -170,6 +170,8 @@ Type
     procedure Edit6Change(Sender: TObject);
     procedure Edit6Enter(Sender: TObject);
     procedure Edit6Exit(Sender: TObject);
+    procedure Edit6MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure Edit7Change(Sender: TObject);
     procedure Edit7Enter(Sender: TObject);
     procedure Edit7Exit(Sender: TObject);
@@ -191,7 +193,6 @@ Type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure FormWindowStateChange(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure Label25Click(Sender: TObject);
     procedure Label25MouseDown(Sender: TObject; Button: TMouseButton;
@@ -218,6 +219,8 @@ Type
     procedure Memo1Change(Sender: TObject);
     procedure Memo1Enter(Sender: TObject);
     procedure Memo1Exit(Sender: TObject);
+    procedure Memo1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
@@ -300,7 +303,8 @@ Var Form1: TForm1;
         newIDSet, requestCompression, askUnsavedChanges, askDeleteAccount,
         askChangeCredentials, askUpdateNote, askDeleteNote,
         askWantLogout, once: boolean;
-    selectedNoteIndex, newID, FormSize, lastCode: integer;
+    selectedNoteIndex, newID, FormSize, lastCode, selStart, selLength,
+        selStart2, selLength2: integer;
     tempNote: note;
     tempUser: user;
     tempServer: serverInfo;
@@ -1896,6 +1900,13 @@ begin
      {$ENDIF}
 end;
 
+procedure TForm1.Edit6MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+     selStart:=Edit6.SelStart;
+     selLength:=Edit6.SelLength;
+end;
+
 procedure TForm1.Edit7Change(Sender: TObject);
 begin
      userChanged:=true;
@@ -1985,18 +1996,6 @@ begin
           Label25.Top:=Form1.Height-15;
      end
      else Notebook1.Height:=Form1.Height;
-end;
-
-procedure TForm1.FormWindowStateChange(Sender: TObject);
-begin
-     {$IFDEF LCLWinCE}
-     If ((Notebook1.PageIndex=0) or (Notebook1.PageIndex=1)
-        or (Notebook1.PageIndex=3) or (Notebook1.PageIndex=11))
-        and (Form1.WindowState=wsMinimized) then
-     begin
-          Form1.Close();
-     end;
-     {$ENDIF}
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
@@ -2169,6 +2168,13 @@ begin
      {$IFDEF LCLWinCE}
      Timer1.Enabled:=true;
      {$ENDIF}
+end;
+
+procedure TForm1.Memo1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+     selStart2:=Memo1.SelStart;
+     selLength2:=Memo1.SelLength;
 end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
@@ -2701,6 +2707,8 @@ end;
 
 procedure TForm1.PopupMenu2Popup(Sender: TObject);
 begin
+     Edit6.SelStart:=selStart;
+     Edit6.SelLength:=selLength;
      { Undo }
      MenuItem2.Enabled:=Edit6.CanUndo;
      { Cut, Copy, Delete }
@@ -2715,6 +2723,8 @@ end;
 
 procedure TForm1.PopupMenu3Popup(Sender: TObject);
 begin
+     Memo1.SelStart:=selStart2;
+     Memo1.SelLength:=selLength2;
      { Undo }
      MenuItem10.Enabled:=Memo1.CanUndo;
      { Cut, Copy, Delete }
