@@ -455,6 +455,7 @@ begin
      txW:=UTF8ToAnsi(text);
      titleW:=UTF8ToAnsi(Application.Title);
      Result:=(Windows.MessageBox(Form1.Handle,PWideChar(txW),PWideChar(titleW),Windows.MB_ICONQUESTION+Windows.MB_YESNO)=Windows.IDYES);
+     setWindowSize;
      {$ELSE}
      tx:=UTF8ToAnsi(text);
      title:=UTF8ToAnsi(Application.Title);
@@ -473,6 +474,7 @@ begin
      txW:=UTF8ToAnsi(text);
      titleW:=UTF8ToAnsi(Application.Title);
      Windows.MessageBox(Form1.Handle,PWideChar(txW),PWideChar(titleW),Windows.MB_ICONINFORMATION);
+     setWindowSize;
      {$ELSE}
      tx:=UTF8ToAnsi(text);
      title:=UTF8ToAnsi(Application.Title);
@@ -491,6 +493,7 @@ begin
      txW:=UTF8ToAnsi(text);
      titleW:=UTF8ToAnsi(Application.Title);
      Windows.MessageBox(Form1.Handle,PWideChar(txW),PWideChar(titleW),Windows.MB_ICONERROR);
+     setWindowSize;
      {$ELSE}
      tx:=UTF8ToAnsi(text);
      title:=UTF8ToAnsi(Application.Title);
@@ -1720,6 +1723,7 @@ end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
+     Edit5.Text:='';
      Notebook1.PageIndex:=0;
 end;
 
