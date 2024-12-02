@@ -301,7 +301,7 @@ Var Form1: TForm1;
     settingsLoaded, newSize, noteChanged, userChanged, serverChanged,
         newIDSet, requestCompression, askUnsavedChanges, askDeleteAccount,
         askChangeCredentials, askUpdateNote, askDeleteNote,
-        askWantLogout: boolean;
+        askWantLogout, once: boolean;
     selectedNoteIndex, newID, FormSize, lastCode: integer;
     tempNote: note;
     tempUser: user;
@@ -356,6 +356,13 @@ begin
                        Form1.Height:=FormSize-(x.rcSipRect.Bottom-x.rcSipRect.Top)
                     else
                        Form1.Height:=FormSize;
+               end;
+          end
+          else
+          begin
+               If Form1.Height<>FormSize then
+               begin
+                    FormSize:=Form1.Height;
                end;
           end;
      end
