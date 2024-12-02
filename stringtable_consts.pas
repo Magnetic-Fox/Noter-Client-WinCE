@@ -1,8 +1,8 @@
-unit stringtable_consts;
+Unit stringtable_consts;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
 { Library information section }
 
@@ -161,6 +161,6 @@ const BUTTON_MESSAGES=              517;
 const BUTTON_APPLY=                 518;
 const BUTTON_BACK2=                 519;
 
-implementation
+Implementation
 
-end.
+End.

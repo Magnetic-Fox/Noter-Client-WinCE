@@ -1,18 +1,17 @@
-unit Unit1;
+Unit Unit1;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
-uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, ExtCtrls, Buttons, Menus, httpsend, synacode, fpjson, jsonparser,
-  Dos, Windows, synacrypt, IniFiles, Clipbrd, CheckLst, Unit2, noter_constants,
-  stringtable_consts, bzip2stream
-  {$IFDEF LCLWinCE}
-  , sipapi
-  {$ENDIF}
-  ;
+Uses Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+     ComCtrls, ExtCtrls, Buttons, Menus, httpsend, synacode, fpjson, jsonparser,
+     Dos, Windows, synacrypt, IniFiles, Clipbrd, CheckLst, Unit2,
+     noter_constants, stringtable_consts, bzip2stream
+     {$IFDEF LCLWinCE}
+     , sipapi
+     {$ENDIF}
+     ;
 
 { ---------------------------------------------------------------------------- }
 
@@ -30,39 +29,39 @@ const langLibName=                 'lang_pl.dll';
 { Structures definition }
 
 { Element structure }
-type element = record
+Type element = record
      { name:    utf8string; }
      lastMod: TDateTime;
      id:      integer;
-end;
+End;
 
 { Note structure }
-type note = record
+Type note = record
      id:             integer;
      subject, entry: utf8string;
      added, lastMod: TDateTime;
      locked:         boolean;
      UA, lastUA:     utf8string;
-end;
+End;
 
 { User structure }
-type user = record
+Type user = record
      id:          integer;
      username:    utf8string;
      registered:  TDateTime;
      UA:          utf8string;
      lastChanged: TDateTime;
      lastUA:      utf8string;
-end;
+End;
 
 { Server information structure }
-type serverInfo = record
+Type serverInfo = record
      name, timezone, version: utf8string;
-end;
+End;
 
 { Additional types }
-type att= array of utf8string;
-type elm= array of element;
+Type att= array of utf8string;
+Type elm= array of element;
 
 { ---------------------------------------------------------------------------- }
 
@@ -99,181 +98,54 @@ Function getShortName(libName: {$IFDEF LCLWinCE}widestring{$ELSE}string{$ENDIF})
 
 { Main form definition }
 
-type
+Type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
-    Button10: TButton;
-    Button11: TButton;
-    Button12: TButton;
-    Button13: TButton;
-    Button14: TButton;
-    Button15: TButton;
-    Button16: TButton;
-    Button17: TButton;
-    Button18: TButton;
-    Button19: TButton;
-    Button2: TButton;
-    Button20: TButton;
-    Button21: TButton;
-    Button22: TButton;
-    Button23: TButton;
-    Button24: TButton;
-    Button25: TButton;
-    Button26: TButton;
-    Button27: TButton;
-    Button28: TButton;
-    Button29: TButton;
-    Button3: TButton;
-    Button30: TButton;
-    Button31: TButton;
-    Button32: TButton;
-    Button33: TButton;
-    Button34: TButton;
-    Button4: TButton;
-    Button5: TButton;
-    Button6: TButton;
-    Button7: TButton;
-    Button8: TButton;
-    Button9: TButton;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    CheckBox3: TCheckBox;
+    Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8,
+        Button9, Button10, Button11, Button12, Button13, Button14, Button15,
+        Button16, Button17, Button18, Button19, Button20, Button21, Button22,
+        Button23, Button24, Button25, Button26, Button27, Button28, Button29,
+        Button30, Button31, Button32, Button33, Button34: TButton;
+    CheckBox1, CheckBox2, CheckBox3: TCheckBox;
     CheckListBox1: TCheckListBox;
-    Edit1: TEdit;
-    Edit10: TEdit;
-    Edit11: TEdit;
-    Edit12: TEdit;
-    Edit2: TEdit;
-    Edit3: TEdit;
-    Edit4: TEdit;
-    Edit5: TEdit;
-    Edit6: TEdit;
-    Edit7: TEdit;
-    Edit8: TEdit;
-    Edit9: TEdit;
+    Edit1, Edit2, Edit3, Edit4, Edit5, Edit6, Edit7, Edit8, Edit9, Edit10,
+        Edit11, Edit12: TEdit;
     Image1: TImage;
     ImageList1: TImageList;
-    Label1: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
-    Label14: TLabel;
-    Label15: TLabel;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label18: TLabel;
-    Label19: TLabel;
-    Label2: TLabel;
-    Label20: TLabel;
-    Label21: TLabel;
-    Label22: TLabel;
-    Label23: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label26: TLabel;
-    Label27: TLabel;
-    Label28: TLabel;
-    Label29: TLabel;
-    Label3: TLabel;
-    Label30: TLabel;
-    Label31: TLabel;
-    Label32: TLabel;
-    Label33: TLabel;
-    Label34: TLabel;
-    Label35: TLabel;
-    Label36: TLabel;
-    Label37: TLabel;
-    Label38: TLabel;
-    Label39: TLabel;
-    Label4: TLabel;
-    Label40: TLabel;
-    Label41: TLabel;
-    Label42: TLabel;
-    Label43: TLabel;
-    Label44: TLabel;
-    Label45: TLabel;
-    Label46: TLabel;
-    Label47: TLabel;
-    Label48: TLabel;
-    Label49: TLabel;
-    Label5: TLabel;
-    Label50: TLabel;
-    Label51: TLabel;
-    Label52: TLabel;
-    Label53: TLabel;
-    Label54: TLabel;
-    Label55: TLabel;
-    Label56: TLabel;
-    Label57: TLabel;
-    Label58: TLabel;
-    Label59: TLabel;
-    Label6: TLabel;
-    Label60: TLabel;
-    Label61: TLabel;
-    Label62: TLabel;
-    Label63: TLabel;
-    Label64: TLabel;
-    Label65: TLabel;
-    Label66: TLabel;
-    Label67: TLabel;
-    Label68: TLabel;
-    Label69: TLabel;
-    Label7: TLabel;
-    Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
-    Label73: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
-    ListBox1: TListBox;
-    ListBox2: TListBox;
+    Label1, Label2, Label3, Label4, Label5, Label6, Label7, Label8, Label9,
+        Label10, Label11, Label12, Label13, Label14, Label15, Label16, Label17,
+        Label18, Label19, Label20, Label21, Label22, Label23, Label24, Label25,
+        Label26, Label27, Label28, Label29, Label30, Label31, Label32, Label33,
+        Label34, Label35, Label36, Label37, Label38, Label39, Label40, Label41,
+        Label42, Label43, Label44, Label45, Label46, Label47, Label48, Label49,
+        Label50, Label51, Label52, Label53, Label54, Label55, Label56, Label57,
+        Label58, Label59, Label60, Label61, Label62, Label63, Label64, Label65,
+        Label66, Label67, Label68, Label69, Label70, Label71, Label72,
+        Label73: TLabel;
+    ListBox1, ListBox2: TListBox;
     Memo1: TMemo;
-    MenuItem1: TMenuItem;
-    MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
-    MenuItem13: TMenuItem;
-    MenuItem14: TMenuItem;
-    MenuItem15: TMenuItem;
-    MenuItem16: TMenuItem;
-    MenuItem17: TMenuItem;
-    MenuItem18: TMenuItem;
-    MenuItem19: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem20: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
-    MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
+    MenuItem1, MenuItem2, MenuItem3, MenuItem4, MenuItem5, MenuItem6, MenuItem7,
+        MenuItem8, MenuItem9, MenuItem10, MenuItem11, MenuItem12, MenuItem13,
+        MenuItem14, MenuItem15, MenuItem16, MenuItem17, MenuItem18, MenuItem19,
+        MenuItem20: TMenuItem;
     Notebook1: TNotebook;
-    Page1: TPage;
-    Page10: TPage;
-    Page11: TPage;
-    Page12: TPage;
-    Page13: TPage;
-    Page14: TPage;
-    Page15: TPage;
-    Page2: TPage;
-    Page3: TPage;
-    Page4: TPage;
-    Page5: TPage;
-    Page6: TPage;
-    Page7: TPage;
-    Page8: TPage;
-    Page9: TPage;
-    PopupMenu1: TPopupMenu;
-    PopupMenu2: TPopupMenu;
-    PopupMenu3: TPopupMenu;
+    Page1, Page2, Page3, Page4, Page5, Page6, Page7, Page8, Page9, Page10,
+        Page11, Page12, Page13, Page14, Page15: TPage;
+    PopupMenu1, PopupMenu2, PopupMenu3: TPopupMenu;
     ScrollBox1: TScrollBox;
-    Timer1: TTimer;
-    Timer2: TTimer;
+    Timer1, Timer2: TTimer;
+
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
     procedure Button10Click(Sender: TObject);
     procedure Button11Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
@@ -284,7 +156,6 @@ type
     procedure Button17Click(Sender: TObject);
     procedure Button18Click(Sender: TObject);
     procedure Button19Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure Button20Click(Sender: TObject);
     procedure Button21Click(Sender: TObject);
     procedure Button22Click(Sender: TObject);
@@ -295,29 +166,13 @@ type
     procedure Button27Click(Sender: TObject);
     procedure Button28Click(Sender: TObject);
     procedure Button29Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure Button30Click(Sender: TObject);
     procedure Button31Click(Sender: TObject);
     procedure Button32Click(Sender: TObject);
     procedure Button33Click(Sender: TObject);
     procedure Button34Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
-    procedure Button5Click(Sender: TObject);
-    procedure Button6Click(Sender: TObject);
-    procedure Button7Click(Sender: TObject);
-    procedure Button8Click(Sender: TObject);
-    procedure Button9Click(Sender: TObject);
     procedure CheckBox2Change(Sender: TObject);
     procedure CheckBox3Change(Sender: TObject);
-    procedure Edit10Enter(Sender: TObject);
-    procedure Edit10Exit(Sender: TObject);
-    procedure Edit11Change(Sender: TObject);
-    procedure Edit11Enter(Sender: TObject);
-    procedure Edit11Exit(Sender: TObject);
-    procedure Edit12Change(Sender: TObject);
-    procedure Edit12Enter(Sender: TObject);
-    procedure Edit12Exit(Sender: TObject);
     procedure Edit1Enter(Sender: TObject);
     procedure Edit1Exit(Sender: TObject);
     procedure Edit2Enter(Sender: TObject);
@@ -340,6 +195,14 @@ type
     procedure Edit9Change(Sender: TObject);
     procedure Edit9Enter(Sender: TObject);
     procedure Edit9Exit(Sender: TObject);
+    procedure Edit10Enter(Sender: TObject);
+    procedure Edit10Exit(Sender: TObject);
+    procedure Edit11Change(Sender: TObject);
+    procedure Edit11Enter(Sender: TObject);
+    procedure Edit11Exit(Sender: TObject);
+    procedure Edit12Change(Sender: TObject);
+    procedure Edit12Enter(Sender: TObject);
+    procedure Edit12Exit(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
@@ -370,12 +233,6 @@ type
     procedure Memo1Change(Sender: TObject);
     procedure Memo1Enter(Sender: TObject);
     procedure Memo1Exit(Sender: TObject);
-    procedure MenuItem10Click(Sender: TObject);
-    procedure MenuItem12Click(Sender: TObject);
-    procedure MenuItem13Click(Sender: TObject);
-    procedure MenuItem14Click(Sender: TObject);
-    procedure MenuItem15Click(Sender: TObject);
-    procedure MenuItem17Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
@@ -383,24 +240,12 @@ type
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem7Click(Sender: TObject);
     procedure MenuItem9Click(Sender: TObject);
-    procedure Page10BeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
-    procedure Page10Resize(Sender: TObject);
-    procedure Page11BeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
-    procedure Page11Resize(Sender: TObject);
-    procedure Page12BeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
-    procedure Page12Resize(Sender: TObject);
-    procedure Page13BeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
-    procedure Page13Resize(Sender: TObject);
-    procedure Page14BeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
-    procedure Page14Resize(Sender: TObject);
-    procedure Page15BeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
-    procedure Page15Resize(Sender: TObject);
+    procedure MenuItem10Click(Sender: TObject);
+    procedure MenuItem12Click(Sender: TObject);
+    procedure MenuItem13Click(Sender: TObject);
+    procedure MenuItem14Click(Sender: TObject);
+    procedure MenuItem15Click(Sender: TObject);
+    procedure MenuItem17Click(Sender: TObject);
     procedure Page1BeforeShow(ASender: TObject; ANewPage: TPage;
       ANewIndex: Integer);
     procedure Page1Resize(Sender: TObject);
@@ -428,6 +273,24 @@ type
     procedure Page9BeforeShow(ASender: TObject; ANewPage: TPage;
       ANewIndex: Integer);
     procedure Page9Resize(Sender: TObject);
+    procedure Page10BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page10Resize(Sender: TObject);
+    procedure Page11BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page11Resize(Sender: TObject);
+    procedure Page12BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page12Resize(Sender: TObject);
+    procedure Page13BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page13Resize(Sender: TObject);
+    procedure Page14BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page14Resize(Sender: TObject);
+    procedure Page15BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page15Resize(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     procedure PopupMenu2Popup(Sender: TObject);
     procedure PopupMenu3Popup(Sender: TObject);
@@ -444,7 +307,7 @@ type
 
 { Variables }
 
-var Form1: TForm1;
+Var Form1: TForm1;
     elements: array of element;
     userAgent, server, share, username, password, iniFile: utf8string;
     ini: TIniFile;
@@ -460,7 +323,7 @@ var Form1: TForm1;
     dllFilesList: TStringList;
 
 { String variables }
-var informationPreviousServer, infoOK, infoUserCreated, infoUserUpdated,
+Var informationPreviousServer, infoOK, infoUserCreated, infoUserUpdated,
     infoUserDeleted, infoNoteListGot, infoNoteRetrieved, infoNoteCreated,
     infoNoteUpdated, infoNoteDeleted, infoUserInfoGot, infoNoteLocked,
     infoNoteUnlocked, infoServerChanged, questionUnsavedChanges,
@@ -479,7 +342,7 @@ var informationPreviousServer, infoOK, infoUserCreated, infoUserUpdated,
     forVersion, createdBy, creationDate, noQuestions, someQuestions,
     allQuestions, langLibInfo, langLibAuthor, langLibDate: utf8string;
 
-implementation
+Implementation
 
 {$R *.lfm}
 
@@ -2862,4 +2725,4 @@ begin
      bringToFront;
 end;
 
-end.
+End.

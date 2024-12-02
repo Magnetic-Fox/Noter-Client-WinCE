@@ -1,8 +1,8 @@
-unit noter_constants;
+Unit noter_constants;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
 { Constants }
 
@@ -49,6 +49,6 @@ const serverChangedSuccessful=     1024;
 const DEFAULT_NOJSON=              'No usable JSON data.';
 const DEFAULT_NOLIBRARY=           'Library could not be loaded!'#13#10'Application finishes.';
 
-implementation
+Implementation
 
-end.
+End.

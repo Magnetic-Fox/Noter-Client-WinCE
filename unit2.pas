@@ -1,29 +1,21 @@
-unit Unit2;
+Unit Unit2;
 
 {$mode objfpc}{$H+}
 
-interface
+Interface
 
-uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Clipbrd, ExtCtrls, Windows;
+Uses Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+     Clipbrd, ExtCtrls, Windows;
 
-type
+Type
 
   { TForm2 }
 
   TForm2 = class(TForm)
     Button1: TButton;
     Image1: TImage;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
+    Label1, Label2, Label3, Label4, Label5, Label6, Label7, Label8,
+      Label9: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -40,10 +32,11 @@ type
     { public declarations }
   end;
 
-var Form2: TForm2;
-    version, programmer, contact, productionTime, buttonClose, informationFormName: utf8string;
+Var Form2: TForm2;
+    version, programmer, contact, productionTime, buttonClose,
+      informationFormName: utf8string;
 
-implementation
+Implementation
 
 {$R *.lfm}
 
@@ -133,4 +126,4 @@ begin
      Label5.Font.Color:=clDefault;
 end;
 
-end.
+End.
