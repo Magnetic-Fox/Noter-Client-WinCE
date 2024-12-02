@@ -15,17 +15,6 @@ Uses Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
 
 { ---------------------------------------------------------------------------- }
 
-{ Temporary booleans }
-const askUnsavedChanges=           true;
-const askDeleteAccount=            true;
-const askChangeCredentials=        true;
-const askUpdateNote=               true;
-const askDeleteNote=               true;
-const askWantLogout=               true;
-
-{ Temporary const }
-const langLibName=                 'lang_pl.dll';
-
 { Structures definition }
 
 { Element structure }
@@ -66,7 +55,6 @@ Type elm= array of element;
 { ---------------------------------------------------------------------------- }
 
 { Functions and procedures prototypes }
-
 {$IFDEF LCLWinCE}
 Function SHGetShortcutTarget(szShortcut, szTarget: LPTSTR; cbMax: integer): WordBool; stdcall; external 'coredll.dll' name 'SHGetShortcutTarget';
 Function wndCallBack(Ahwnd: HWND; uMsg: UINT; wParam: WParam; lParam: LParam): LRESULT; stdcall;
@@ -97,11 +85,8 @@ Function getShortName(libName: {$IFDEF LCLWinCE}widestring{$ELSE}string{$ENDIF})
 { ---------------------------------------------------------------------------- }
 
 { Main form definition }
-
 Type
-
   { TForm1 }
-
   TForm1 = class(TForm)
     Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8,
         Button9, Button10, Button11, Button12, Button13, Button14, Button15,
@@ -310,10 +295,13 @@ Type
 
 Var Form1: TForm1;
     elements: array of element;
-    userAgent, server, share, username, password, iniFile: utf8string;
+    userAgent, server, share, username, password, iniFile,
+        langLibName: utf8string;
     ini: TIniFile;
     settingsLoaded, newSize, noteChanged, userChanged, serverChanged,
-        newIDSet, requestCompression: boolean;
+        newIDSet, requestCompression, askUnsavedChanges, askDeleteAccount,
+        askChangeCredentials, askUpdateNote, askDeleteNote,
+        askWantLogout: boolean;
     selectedNoteIndex, newID, FormSize, lastCode: integer;
     tempNote: note;
     tempUser: user;
@@ -1043,15 +1031,23 @@ begin
      newIDSet:=false;
      iniFile:=Application.Location+'config.ini';
      ini:=TIniFile.Create(iniFile);
+     { Language Library Setting }
+     langLibName:=ini.ReadString('locale','lang','lang_pl.dll');
      loadLocaleStrings(langLibName);
-     If ini.SectionExists('server') then
-     begin
-          server:=ini.ReadString('server','address','');
-          share:=ini.ReadString('server','share','');
-          requestCompression:=ini.ReadBool('server','compression',false);
-          Edit1.Text:=server;
-          Edit2.Text:=share;
-     end;
+     { Questions settings }
+     askUnsavedChanges:=ini.ReadBool('questions','changes',true);
+     askDeleteAccount:=ini.ReadBool('questions','account_delete',true);
+     askChangeCredentials:=ini.ReadBool('questions','credentials',true);
+     askUpdateNote:=ini.ReadBool('questions','note_update',true);
+     askDeleteNote:=ini.ReadBool('questions','note_delete',true);
+     askWantLogout:=ini.ReadBool('questions','logout',true);
+     { Server settings }
+     server:=ini.ReadString('server','address','');
+     share:=ini.ReadString('server','share','');
+     requestCompression:=ini.ReadBool('server','compression',false);
+     Edit1.Text:=server;
+     Edit2.Text:=share;
+     { User settings }
      If ini.SectionExists('user') then
      begin
           username:=ini.ReadString('user','username','');
@@ -1061,6 +1057,7 @@ begin
           Edit3.Text:=username;
           Edit4.Text:=password;
      end;
+     { Additional preparation }
      If ini.SectionExists('server') and ini.SectionExists('user') then
      begin
           settingsLoaded:=((length(server)>0) and (length(share)>0) and (length(username)>0) and (length(password)>0));
@@ -1647,7 +1644,10 @@ end;
 
 procedure TForm1.Button31Click(Sender: TObject);
 begin
-
+     langLibName:=ExtractFileName(dllFilesList[ListBox2.ItemIndex]);
+     ini.WriteString('locale','lang',langLibName);
+     loadLocaleStrings(langLibName);
+     Notebook1.PageIndex:=12;
 end;
 
 procedure TForm1.Button32Click(Sender: TObject);
@@ -1657,7 +1657,19 @@ end;
 
 procedure TForm1.Button33Click(Sender: TObject);
 begin
-
+     askUnsavedChanges:=CheckListBox1.Checked[0];
+     askDeleteAccount:=CheckListBox1.Checked[1];
+     askChangeCredentials:=CheckListBox1.Checked[2];
+     askUpdateNote:=CheckListBox1.Checked[3];
+     askDeleteNote:=CheckListBox1.Checked[4];
+     askWantLogout:=CheckListBox1.Checked[5];
+     ini.WriteBool('questions','changes',askUnsavedChanges);
+     ini.WriteBool('questions','account_delete',askDeleteAccount);
+     ini.WriteBool('questions','credentials',askChangeCredentials);
+     ini.WriteBool('questions','note_update',askUpdateNote);
+     ini.WriteBool('questions','note_delete',askDeleteNote);
+     ini.WriteBool('questions','logout',askWantLogout);
+     Notebook1.PageIndex:=12;
 end;
 
 procedure TForm1.Button34Click(Sender: TObject);
