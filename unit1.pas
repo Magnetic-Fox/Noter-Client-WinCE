@@ -369,7 +369,22 @@ begin
                zw:=z;
                delete(zw,1,1);
                delete(zw,length(zw),1);
-               zw:='file:'+zw+'#Contents';
+               zw:='file:'+zw+'#';
+               If Form1.Notebook1.PageIndex=0          then zw:=zw+'MainScreen'
+                  else if Form1.Notebook1.PageIndex=1  then zw:=zw+'Login'
+                  else if Form1.Notebook1.PageIndex=2  then zw:=zw+'Notes'
+                  else if Form1.Notebook1.PageIndex=3  then zw:=zw+'Repeat'
+                  else if Form1.Notebook1.PageIndex=4  then zw:=zw+'Editor'
+                  else if Form1.Notebook1.PageIndex=5  then zw:=zw+'NoteInfo'
+                  else if Form1.Notebook1.PageIndex=6  then zw:=zw+'UserInfo'
+                  else if Form1.Notebook1.PageIndex=7  then zw:=zw+'ServerInfo'
+                  else if Form1.Notebook1.PageIndex=8  then zw:=zw+'PasswordChange'
+                  else if Form1.Notebook1.PageIndex=9  then zw:=zw+'AccountDelete'
+                  else if Form1.Notebook1.PageIndex=10 then zw:=zw+'ServerChange'
+                  else if Form1.Notebook1.PageIndex=11 then zw:=zw+'Terms'
+                  else if Form1.Notebook1.PageIndex=12 then zw:=zw+'Settings'
+                  else if Form1.Notebook1.PageIndex=13 then zw:=zw+'Languages'
+                  else if Form1.Notebook1.PageIndex=14 then zw:=zw+'Confirmations';
                z:=PWideChar(zw);
                CreateProcess('peghelp.exe',z,nil,nil,false,0,nil,nil,nil,nil);
           end
