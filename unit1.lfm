@@ -55,7 +55,7 @@ object Form1: TForm1
         Width = 96
         Caption = 'Rozpocznij!'
         OnClick = Button1Click
-        TabOrder = 5
+        TabOrder = 6
       end
       object Edit4: TEdit
         Left = 8
@@ -65,6 +65,7 @@ object Form1: TForm1
         EchoMode = emPassword
         OnEnter = Edit4Enter
         OnExit = Edit4Exit
+        OnKeyUp = Edit4KeyUp
         PasswordChar = '*'
         TabOrder = 3
       end
@@ -86,6 +87,7 @@ object Form1: TForm1
         Width = 224
         OnEnter = Edit3Enter
         OnExit = Edit3Exit
+        OnKeyUp = Edit3KeyUp
         TabOrder = 2
       end
       object Label5: TLabel
@@ -106,6 +108,7 @@ object Form1: TForm1
         Width = 224
         OnEnter = Edit2Enter
         OnExit = Edit2Exit
+        OnKeyUp = Edit2KeyUp
         TabOrder = 1
       end
       object Label4: TLabel
@@ -126,6 +129,7 @@ object Form1: TForm1
         Width = 224
         OnEnter = Edit1Enter
         OnExit = Edit1Exit
+        OnKeyUp = Edit1KeyUp
         TabOrder = 0
       end
       object Label3: TLabel
@@ -138,6 +142,15 @@ object Form1: TForm1
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
+      end
+      object Button35: TButton
+        Left = 112
+        Height = 25
+        Top = 232
+        Width = 24
+        Caption = 'X'
+        OnClick = Button35Click
+        TabOrder = 5
       end
     end
     object Page2: TPage
@@ -282,6 +295,7 @@ object Form1: TForm1
         EchoMode = emPassword
         OnEnter = Edit5Enter
         OnExit = Edit5Exit
+        OnKeyUp = Edit5KeyUp
         PasswordChar = '*'
         TabOrder = 0
       end

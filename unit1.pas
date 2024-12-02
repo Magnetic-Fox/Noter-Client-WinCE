@@ -92,6 +92,7 @@ Type
         Button16, Button17, Button18, Button19, Button20, Button21, Button22,
         Button23, Button24, Button25, Button26, Button27, Button28, Button29,
         Button30, Button31, Button32, Button33, Button34: TButton;
+        Button35: TButton;
     CheckBox1, CheckBox2, CheckBox3: TCheckBox;
     CheckListBox1: TCheckListBox;
     Edit1, Edit2, Edit3, Edit4, Edit5, Edit6, Edit7, Edit8, Edit9, Edit10,
@@ -123,6 +124,7 @@ Type
 
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button35Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
@@ -159,14 +161,19 @@ Type
     procedure CheckBox3Change(Sender: TObject);
     procedure Edit1Enter(Sender: TObject);
     procedure Edit1Exit(Sender: TObject);
+    procedure Edit1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit2Enter(Sender: TObject);
     procedure Edit2Exit(Sender: TObject);
+    procedure Edit2KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit3Enter(Sender: TObject);
     procedure Edit3Exit(Sender: TObject);
+    procedure Edit3KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit4Enter(Sender: TObject);
     procedure Edit4Exit(Sender: TObject);
+    procedure Edit4KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit5Enter(Sender: TObject);
     procedure Edit5Exit(Sender: TObject);
+    procedure Edit5KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Edit6Change(Sender: TObject);
     procedure Edit6Enter(Sender: TObject);
     procedure Edit6Exit(Sender: TObject);
@@ -1655,6 +1662,11 @@ begin
      Notebook1.PageIndex:=0;
 end;
 
+procedure TForm1.Button35Click(Sender: TObject);
+begin
+     Form1.Close();
+end;
+
 procedure TForm1.Button30Click(Sender: TObject);
 begin
      Notebook1.PageIndex:=12;
@@ -1820,6 +1832,14 @@ begin
      {$ENDIF}
 end;
 
+procedure TForm1.Edit1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+     If Key=13 then
+     begin
+          Button1.Click;
+     end;
+end;
+
 procedure TForm1.Edit2Enter(Sender: TObject);
 begin
      {$IFDEF LCLWinCE}
@@ -1833,6 +1853,14 @@ begin
      {$IFDEF LCLWinCE}
      Timer1.Enabled:=true;
      {$ENDIF}
+end;
+
+procedure TForm1.Edit2KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+     If Key=13 then
+     begin
+          Button1.Click;
+     end;
 end;
 
 procedure TForm1.Edit3Enter(Sender: TObject);
@@ -1850,6 +1878,14 @@ begin
      {$ENDIF}
 end;
 
+procedure TForm1.Edit3KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+     If Key=13 then
+     begin
+          Button1.Click;
+     end;
+end;
+
 procedure TForm1.Edit4Enter(Sender: TObject);
 begin
      {$IFDEF LCLWinCE}
@@ -1865,6 +1901,14 @@ begin
      {$ENDIF}
 end;
 
+procedure TForm1.Edit4KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+     If Key=13 then
+     begin
+          Button1.Click;
+     end;
+end;
+
 procedure TForm1.Edit5Enter(Sender: TObject);
 begin
      {$IFDEF LCLWinCE}
@@ -1878,6 +1922,14 @@ begin
      {$IFDEF LCLWinCE}
      Timer1.Enabled:=true;
      {$ENDIF}
+end;
+
+procedure TForm1.Edit5KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+     If Key=13 then
+     begin
+          Button4.Click;
+     end;
 end;
 
 procedure TForm1.Edit6Change(Sender: TObject);
@@ -2402,6 +2454,7 @@ begin
      Edit3.Width:=Page1.Width-16;
      Edit4.Width:=Page1.Width-16;
      Button1.Left:=Page1.Width-104;
+     Button35.Left:=Page1.Width-128;
 end;
 
 procedure TForm1.Page2BeforeShow(ASender: TObject; ANewPage: TPage;
