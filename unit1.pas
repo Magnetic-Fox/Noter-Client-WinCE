@@ -170,6 +170,7 @@ Type
     procedure Button34Click(Sender: TObject);
     procedure CheckBox2Change(Sender: TObject);
     procedure CheckBox3Change(Sender: TObject);
+    procedure CheckListBox1ClickCheck(Sender: TObject);
     procedure Edit1Enter(Sender: TObject);
     procedure Edit1Exit(Sender: TObject);
     procedure Edit1KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -242,6 +243,7 @@ Type
     procedure Label79MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ListBox1SelectionChange(Sender: TObject; User: boolean);
+    procedure ListBox2SelectionChange(Sender: TObject; User: boolean);
     procedure Memo1Change(Sender: TObject);
     procedure Memo1Enter(Sender: TObject);
     procedure Memo1Exit(Sender: TObject);
@@ -1699,12 +1701,13 @@ begin
      langLibName:=ExtractFileName(dllFilesList[ListBox2.ItemIndex]);
      ini.WriteString('locale','lang',langLibName);
      loadLocaleStrings(langLibName);
+     userChanged:=false;
      Notebook1.PageIndex:=12;
 end;
 
 procedure TForm1.Button32Click(Sender: TObject);
 begin
-     Notebook1.PageIndex:=12;
+     If userOrServerChanged() then Notebook1.PageIndex:=12;
 end;
 
 procedure TForm1.Button33Click(Sender: TObject);
@@ -1721,12 +1724,13 @@ begin
      ini.WriteBool('questions','note_update',askUpdateNote);
      ini.WriteBool('questions','note_delete',askDeleteNote);
      ini.WriteBool('questions','logout',askWantLogout);
+     userChanged:=false;
      Notebook1.PageIndex:=12;
 end;
 
 procedure TForm1.Button34Click(Sender: TObject);
 begin
-     Notebook1.PageIndex:=12;
+     If userOrServerChanged() then Notebook1.PageIndex:=12;
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
@@ -1783,6 +1787,11 @@ procedure TForm1.CheckBox3Change(Sender: TObject);
 begin
      requestCompression:=CheckBox3.Checked;
      ini.WriteBool('server','compression',requestCompression);
+end;
+
+procedure TForm1.CheckListBox1ClickCheck(Sender: TObject);
+begin
+     userChanged:=true;
 end;
 
 procedure TForm1.Edit10Enter(Sender: TObject);
@@ -2261,6 +2270,11 @@ begin
      end;
 end;
 
+procedure TForm1.ListBox2SelectionChange(Sender: TObject; User: boolean);
+begin
+     userChanged:=true;
+end;
+
 procedure TForm1.Memo1Change(Sender: TObject);
 begin
      noteChanged:=true;
@@ -2488,6 +2502,7 @@ begin
           If temp=langLibName then ListBox2.ItemIndex:=x;
      end;
      Label72.Caption:=IntToStr(dllFilesList.Count);
+     userChanged:=false;
 end;
 
 procedure TForm1.Page14Resize(Sender: TObject);
