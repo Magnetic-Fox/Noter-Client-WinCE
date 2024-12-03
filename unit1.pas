@@ -2267,6 +2267,8 @@ end;
 procedure TForm1.MenuItem17Click(Sender: TObject);
 begin
      Memo1.SelectAll;
+     selStart2:=Memo1.SelStart;
+     selLength2:=Memo1.SelLength;
 end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
@@ -2336,6 +2338,8 @@ end;
 procedure TForm1.MenuItem9Click(Sender: TObject);
 begin
      Edit6.SelectAll;
+     selStart:=Edit6.SelStart;
+     selLength:=Edit6.SelLength;
 end;
 
 procedure TForm1.Page10BeforeShow(ASender: TObject; ANewPage: TPage;
@@ -2600,6 +2604,10 @@ procedure TForm1.Page5BeforeShow(ASender: TObject; ANewPage: TPage;
   ANewIndex: Integer);
 begin
      Form1.Constraints.MinHeight:=128;
+     selStart:=0;
+     selLength:=0;
+     selStart2:=0;
+     selLength2:=0;
 end;
 
 procedure TForm1.Page5Resize(Sender: TObject);
