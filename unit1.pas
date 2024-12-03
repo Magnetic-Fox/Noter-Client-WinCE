@@ -196,6 +196,7 @@ Type
     procedure Edit12Change(Sender: TObject);
     procedure Edit12Enter(Sender: TObject);
     procedure Edit12Exit(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
@@ -1818,6 +1819,13 @@ procedure TForm1.Edit12Exit(Sender: TObject);
 begin
      {$IFDEF LCLWinCE}
      Timer1.Enabled:=true;
+     {$ENDIF}
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+     {$IFDEF LCLWinCE}
+     setWindowSize;
      {$ENDIF}
 end;
 

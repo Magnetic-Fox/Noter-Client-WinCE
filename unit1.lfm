@@ -10,6 +10,7 @@ object Form1: TForm1
   Color = clWhite
   Constraints.MinHeight = 264
   Font.CharSet = 4
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
