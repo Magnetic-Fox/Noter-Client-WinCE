@@ -6,7 +6,7 @@ Uses {$IFDEF UNIX}{$IFDEF UseCThreads}
      cthreads,
      {$ENDIF}{$ENDIF}
      Interfaces, // this includes the LCL widgetset
-     Forms, Unit1, Unit2, Windows
+     Forms, Unit1, Windows
      {$IFDEF LCLWinCE}
      , WinCEInt, comobj
      {$ENDIF}
@@ -30,6 +30,5 @@ Begin
      Application.Title:='Noter Client';
      Application.Initialize;
      Application.CreateForm(TForm1, Form1);
-     Application.CreateForm(TForm2, Form2);
      Application.Run;
 End.

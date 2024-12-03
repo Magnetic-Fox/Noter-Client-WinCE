@@ -92,12 +92,14 @@ Type
         Button16, Button17, Button18, Button19, Button20, Button21, Button22,
         Button23, Button24, Button25, Button26, Button27, Button28, Button29,
         Button30, Button31, Button32, Button33, Button34: TButton;
+        Button36: TButton;
         Button35: TButton;
     CheckBox1, CheckBox2, CheckBox3: TCheckBox;
     CheckListBox1: TCheckListBox;
     Edit1, Edit2, Edit3, Edit4, Edit5, Edit6, Edit7, Edit8, Edit9, Edit10,
         Edit11, Edit12: TEdit;
     Image1: TImage;
+    Image2: TImage;
     ImageList1: TImageList;
     Label1, Label2, Label3, Label4, Label5, Label6, Label7, Label8, Label9,
         Label10, Label11, Label12, Label13, Label14, Label15, Label16, Label17,
@@ -109,6 +111,15 @@ Type
         Label58, Label59, Label60, Label61, Label62, Label63, Label64, Label65,
         Label66, Label67, Label68, Label69, Label70, Label71, Label72,
         Label73: TLabel;
+        Label82: TLabel;
+        Label81: TLabel;
+        Label80: TLabel;
+        Label79: TLabel;
+        Label78: TLabel;
+        Label77: TLabel;
+        Label76: TLabel;
+        Label75: TLabel;
+        Label74: TLabel;
     ListBox1, ListBox2: TListBox;
     Memo1: TMemo;
     MenuItem1, MenuItem2, MenuItem3, MenuItem4, MenuItem5, MenuItem6, MenuItem7,
@@ -118,6 +129,7 @@ Type
     Notebook1: TNotebook;
     Page1, Page2, Page3, Page4, Page5, Page6, Page7, Page8, Page9, Page10,
         Page11, Page12, Page13, Page14, Page15: TPage;
+        Page16: TPage;
     PopupMenu1, PopupMenu2, PopupMenu3: TPopupMenu;
     ScrollBox1: TScrollBox;
     Timer1: TTimer;
@@ -223,6 +235,13 @@ Type
     procedure Label69MouseLeave(Sender: TObject);
     procedure Label69MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure Label79Click(Sender: TObject);
+    procedure Label79MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Label79MouseEnter(Sender: TObject);
+    procedure Label79MouseLeave(Sender: TObject);
+    procedure Label79MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure ListBox1SelectionChange(Sender: TObject; User: boolean);
     procedure Memo1Change(Sender: TObject);
     procedure Memo1Enter(Sender: TObject);
@@ -242,6 +261,9 @@ Type
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem17Click(Sender: TObject);
+    procedure Page16BeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
+    procedure Page16Resize(Sender: TObject);
     procedure Page1BeforeShow(ASender: TObject; ANewPage: TPage;
       ANewIndex: Integer);
     procedure Page1Resize(Sender: TObject);
@@ -889,11 +911,11 @@ begin
      Form1.Label49.Caption:=      LoadResourceString(Lib, LABEL_SERVERCHANGING);
      Form1.Label50.Caption:=      LoadResourceString(Lib, LABEL_SERVERADDRESS);
      Form1.Label51.Caption:=      LoadResourceString(Lib, LABEL_SHARE);
-     Unit2.version:=              LoadResourceString(Lib, LABEL_VERSION);
-     Unit2.programmer:=           LoadResourceString(Lib, LABEL_PROGRAMMER);
-     Unit2.contact:=              LoadResourceString(Lib, LABEL_CONTACT);
-     Unit2.productionTime:=       LoadResourceString(Lib, LABEL_PRODUCTIONTIME);
-     Unit2.informationFormName:=  LoadResourceString(Lib, LABEL_INFORMATIONFORMNAME);
+     Form1.Label75.Caption:=      LoadResourceString(Lib, LABEL_VERSION);
+     Form1.Label76.Caption:=      LoadResourceString(Lib, LABEL_PROGRAMMER);
+     Form1.Label78.Caption:=      LoadResourceString(Lib, LABEL_CONTACT);
+     Form1.Label80.Caption:=      LoadResourceString(Lib, LABEL_PRODUCTIONTIME);
+//     Unit2.informationFormName:=  LoadResourceString(Lib, LABEL_INFORMATIONFORMNAME);
      Form1.MenuItem18.Caption:=   LoadResourceString(Lib, LABEL_ID);
      Form1.MenuItem20.Caption:=   LoadResourceString(Lib, LABEL_DATE);
      Form1.MenuItem1.Caption:=    LoadResourceString(Lib, LABEL_DELETE);
@@ -963,7 +985,7 @@ begin
      Form1.Button24.Caption:=     LoadResourceString(Lib, BUTTON_CANCEL);
      Form1.Button25.Caption:=     LoadResourceString(Lib, BUTTON_BACK);
 
-     Unit2.buttonClose:=          LoadResourceString(Lib, BUTTON_CLOSE);
+     Form1.Button36.Caption:=     LoadResourceString(Lib, BUTTON_CLOSE);
 
      Form1.Button27.Caption:=     LoadResourceString(Lib, BUTTON_SERVER);
      Form1.Button28.Caption:=     LoadResourceString(Lib, BUTTON_LANGUAGE);
@@ -2074,10 +2096,12 @@ end;
 
 procedure TForm1.Label25Click(Sender: TObject);
 begin
-     Form2.ShowModal;
+     Notebook1.PageIndex:=15;
+     {
      {$IFDEF LCLWinCE}
      setWindowSize;
      {$ENDIF}
+     }
 end;
 
 procedure TForm1.Label25MouseDown(Sender: TObject; Button: TMouseButton;
@@ -2154,6 +2178,38 @@ procedure TForm1.Label69MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
      Label69.Font.Style:=[];
+end;
+
+procedure TForm1.Label79Click(Sender: TObject);
+begin
+     Clipboard.AsText:=Label79.Caption;
+     Information('Skopiowano adres e-mail do schowka');
+end;
+
+procedure TForm1.Label79MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+     Label79.Font.Style:=[fsBold,fsUnderline];
+     Label79.Font.Color:=clBlue;
+end;
+
+procedure TForm1.Label79MouseEnter(Sender: TObject);
+begin
+     Label79.Font.Style:=[fsBold,fsUnderline];
+     Label79.Font.Color:=clBlue;
+end;
+
+procedure TForm1.Label79MouseLeave(Sender: TObject);
+begin
+     Label79.Font.Style:=[];
+     Label79.Font.Color:=clDefault;
+end;
+
+procedure TForm1.Label79MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+     Label79.Font.Style:=[];
+     Label79.Font.Color:=clDefault;
 end;
 
 procedure TForm1.ListBox1SelectionChange(Sender: TObject; User: boolean);
@@ -2277,6 +2333,24 @@ begin
      Memo1.SelectAll;
      selStart2:=Memo1.SelStart;
      selLength2:=Memo1.SelLength;
+end;
+
+procedure TForm1.Page16BeforeShow(ASender: TObject; ANewPage: TPage;
+  ANewIndex: Integer);
+begin
+     Form1.Constraints.MinHeight:=233;
+end;
+
+procedure TForm1.Page16Resize(Sender: TObject);
+begin
+     Label76.Constraints.MinWidth:=Page16.Width-16;
+     Label76.Constraints.MaxWidth:=Page16.Width-16;
+     Label76.Width:=Page16.Width-16;
+     Label77.Width:=Page16.Width-16;
+     Label79.Width:=Page16.Width-16;
+     Label81.Width:=Page16.Width-16;
+     Label82.Width:=Page16.Width-16;
+     Button36.Width:=Page16.Width-16;
 end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
