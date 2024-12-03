@@ -9,7 +9,6 @@
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="project1"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -24,10 +23,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2072"/>
-        <CursorPos X="29" Y="2109"/>
+        <TopLine Value="2096"/>
+        <CursorPos X="17" Y="2099"/>
         <UsageCount Value="180"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -203,7 +203,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="2079" Column="6" TopLine="2077"/>
@@ -280,6 +280,30 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="2183" Column="31" TopLine="2181"/>
       </Position19>
+      <Position20>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="2109" Column="29" TopLine="2072"/>
+      </Position20>
+      <Position21>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1441" Column="6" TopLine="1439"/>
+      </Position21>
+      <Position22>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1770" Column="6" TopLine="1768"/>
+      </Position22>
+      <Position23>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1764" Column="7" TopLine="1763"/>
+      </Position23>
+      <Position24>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="2099" Column="60" TopLine="2097"/>
+      </Position24>
+      <Position25>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="2098" Column="60" TopLine="2096"/>
+      </Position25>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

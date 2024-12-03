@@ -1605,16 +1605,6 @@ object Form1: TForm1
         ParentColor = False
         ParentFont = False
       end
-      object Button36: TButton
-        Left = 8
-        Height = 25
-        Top = 208
-        Width = 224
-        Caption = 'Zamknij'
-        ModalResult = 11
-        OnClick = Button1Click
-        TabOrder = 0
-      end
     end
   end
   object Button6: TButton

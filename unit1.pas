@@ -92,7 +92,6 @@ Type
         Button16, Button17, Button18, Button19, Button20, Button21, Button22,
         Button23, Button24, Button25, Button26, Button27, Button28, Button29,
         Button30, Button31, Button32, Button33, Button34: TButton;
-        Button36: TButton;
         Button35: TButton;
     CheckBox1, CheckBox2, CheckBox3: TCheckBox;
     CheckListBox1: TCheckListBox;
@@ -915,7 +914,6 @@ begin
      Form1.Label76.Caption:=      LoadResourceString(Lib, LABEL_PROGRAMMER);
      Form1.Label78.Caption:=      LoadResourceString(Lib, LABEL_CONTACT);
      Form1.Label80.Caption:=      LoadResourceString(Lib, LABEL_PRODUCTIONTIME);
-//     Unit2.informationFormName:=  LoadResourceString(Lib, LABEL_INFORMATIONFORMNAME);
      Form1.MenuItem18.Caption:=   LoadResourceString(Lib, LABEL_ID);
      Form1.MenuItem20.Caption:=   LoadResourceString(Lib, LABEL_DATE);
      Form1.MenuItem1.Caption:=    LoadResourceString(Lib, LABEL_DELETE);
@@ -984,8 +982,6 @@ begin
      Form1.Button23.Caption:=     LoadResourceString(Lib, BUTTON_CHANGESERVER);
      Form1.Button24.Caption:=     LoadResourceString(Lib, BUTTON_CANCEL);
      Form1.Button25.Caption:=     LoadResourceString(Lib, BUTTON_BACK);
-
-     Form1.Button36.Caption:=     LoadResourceString(Lib, BUTTON_CLOSE);
 
      Form1.Button27.Caption:=     LoadResourceString(Lib, BUTTON_SERVER);
      Form1.Button28.Caption:=     LoadResourceString(Lib, BUTTON_LANGUAGE);
@@ -2096,12 +2092,7 @@ end;
 
 procedure TForm1.Label25Click(Sender: TObject);
 begin
-     Notebook1.PageIndex:=15;
-     {
-     {$IFDEF LCLWinCE}
-     setWindowSize;
-     {$ENDIF}
-     }
+     If userOrServerChanged() then Notebook1.PageIndex:=15;
 end;
 
 procedure TForm1.Label25MouseDown(Sender: TObject; Button: TMouseButton;
@@ -2338,7 +2329,7 @@ end;
 procedure TForm1.Page16BeforeShow(ASender: TObject; ANewPage: TPage;
   ANewIndex: Integer);
 begin
-     Form1.Constraints.MinHeight:=233;
+     Form1.Constraints.MinHeight:=221;
 end;
 
 procedure TForm1.Page16Resize(Sender: TObject);
@@ -2350,7 +2341,6 @@ begin
      Label79.Width:=Page16.Width-16;
      Label81.Width:=Page16.Width-16;
      Label82.Width:=Page16.Width-16;
-     Button36.Width:=Page16.Width-16;
 end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
