@@ -22,7 +22,7 @@ object Form1: TForm1
     Height = 252
     Top = 0
     Width = 240
-    PageIndex = 13
+    PageIndex = 0
     TabOrder = 0
     TabStop = True
     object Page1: TPage
@@ -37,7 +37,7 @@ object Form1: TForm1
         Caption = 'Noter Client v1.0'
         Font.CharSet = 4
         Font.Height = -24
-        Font.Style = [fsBold, fsItalic]
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -166,7 +166,7 @@ object Form1: TForm1
         Caption = 'Noter Client v1.0'
         Font.CharSet = 4
         Font.Height = -24
-        Font.Style = [fsBold, fsItalic]
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -273,7 +273,7 @@ object Form1: TForm1
         Caption = 'Noter Client v1.0'
         Font.CharSet = 4
         Font.Height = -24
-        Font.Style = [fsBold, fsItalic]
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1201,7 +1201,7 @@ object Form1: TForm1
         Caption = 'Noter Client v1.0'
         Font.CharSet = 4
         Font.Height = -24
-        Font.Style = [fsBold, fsItalic]
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1606,6 +1606,15 @@ object Form1: TForm1
         Font.CharSet = 4
         ParentColor = False
         ParentFont = False
+      end
+      object Button36: TButton
+        Left = 0
+        Height = 16
+        Top = 208
+        Width = 80
+        Caption = 'Wróć'
+        OnClick = Button36Click
+        TabOrder = 0
       end
     end
   end

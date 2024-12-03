@@ -6,7 +6,7 @@ Interface
 
 Uses Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
      ComCtrls, ExtCtrls, Buttons, Menus, httpsend, synacode, fpjson, jsonparser,
-     Dos, Windows, synacrypt, IniFiles, Clipbrd, CheckLst, Unit2,
+     Dos, Windows, synacrypt, IniFiles, Clipbrd, CheckLst,
      noter_constants, stringtable_consts, bzip2stream
      {$IFDEF LCLWinCE}
      , sipapi
@@ -92,6 +92,7 @@ Type
         Button16, Button17, Button18, Button19, Button20, Button21, Button22,
         Button23, Button24, Button25, Button26, Button27, Button28, Button29,
         Button30, Button31, Button32, Button33, Button34: TButton;
+        Button36: TButton;
         Button35: TButton;
     CheckBox1, CheckBox2, CheckBox3: TCheckBox;
     CheckListBox1: TCheckListBox;
@@ -136,6 +137,7 @@ Type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button35Click(Sender: TObject);
+    procedure Button36Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
@@ -335,7 +337,7 @@ Var Form1: TForm1;
         askChangeCredentials, askUpdateNote, askDeleteNote,
         askWantLogout, once: boolean;
     selectedNoteIndex, newID, FormSize, lastCode, selStart, selLength,
-        selStart2, selLength2: integer;
+        selStart2, selLength2, lastIndex: integer;
     tempNote: note;
     tempUser: user;
     tempServer: serverInfo;
@@ -362,7 +364,8 @@ Var informationPreviousServer, infoOK, infoUserCreated, infoUserUpdated,
     labelLoggedInSuccessfully, labelLoggingInError, labelID, labelDate,
     buttonAdd, buttonUpdate, buttonLock, buttonUnlock, enLangName, langName,
     forVersion, createdBy, creationDate, noQuestions, someQuestions,
-    allQuestions, langLibInfo, langLibAuthor, langLibDate: utf8string;
+    allQuestions, langLibInfo, langLibAuthor, langLibDate,
+    emailCopied: utf8string;
 
 Implementation
 
@@ -871,6 +874,7 @@ begin
      labelLoggingInError:=        LoadResourceString(Lib, LABEL_LOGGINGINERROR);
      labelID:=                    LoadResourceString(Lib, LABEL_ID);
      labelDate:=                  LoadResourceString(Lib, LABEL_DATE);
+     emailCopied:=                LoadResourceString(Lib, LABEL_EMAIL_COPIED);
 
      Form1.Label3.Caption:=       LoadResourceString(Lib, LABEL_SERVERADDRESS);
      Form1.Label4.Caption:=       LoadResourceString(Lib, LABEL_SHARE);
@@ -984,7 +988,6 @@ begin
      Form1.Button23.Caption:=     LoadResourceString(Lib, BUTTON_CHANGESERVER);
      Form1.Button24.Caption:=     LoadResourceString(Lib, BUTTON_CANCEL);
      Form1.Button25.Caption:=     LoadResourceString(Lib, BUTTON_BACK);
-
      Form1.Button27.Caption:=     LoadResourceString(Lib, BUTTON_SERVER);
      Form1.Button28.Caption:=     LoadResourceString(Lib, BUTTON_LANGUAGE);
      Form1.Button29.Caption:=     LoadResourceString(Lib, BUTTON_MESSAGES);
@@ -993,6 +996,7 @@ begin
      Form1.Button32.Caption:=     LoadResourceString(Lib, BUTTON_CANCEL);
      Form1.Button33.Caption:=     LoadResourceString(Lib, BUTTON_APPLY);
      Form1.Button34.Caption:=     LoadResourceString(Lib, BUTTON_CANCEL);
+     Form1.Button36.Caption:=     LoadResourceString(Lib, BUTTON_BACK2);
 end;
 
 Procedure loadLocaleStrings(libName: {$IFDEF LCLWinCE}widestring{$ELSE}string{$ENDIF});
@@ -1691,6 +1695,11 @@ begin
      Form1.Close();
 end;
 
+procedure TForm1.Button36Click(Sender: TObject);
+begin
+     Notebook1.PageIndex:=lastIndex;
+end;
+
 procedure TForm1.Button30Click(Sender: TObject);
 begin
      Notebook1.PageIndex:=12;
@@ -2101,7 +2110,11 @@ end;
 
 procedure TForm1.Label25Click(Sender: TObject);
 begin
-     If userOrServerChanged() then Notebook1.PageIndex:=15;
+     If userOrServerChanged() then
+     begin
+          lastIndex:=Notebook1.PageIndex;
+          Notebook1.PageIndex:=15;
+     end;
 end;
 
 procedure TForm1.Label25MouseDown(Sender: TObject; Button: TMouseButton;
@@ -2183,7 +2196,7 @@ end;
 procedure TForm1.Label79Click(Sender: TObject);
 begin
      Clipboard.AsText:=Label79.Caption;
-     Information('Skopiowano adres e-mail do schowka');
+     Information(emailCopied);
 end;
 
 procedure TForm1.Label79MouseDown(Sender: TObject; Button: TMouseButton;
@@ -2343,7 +2356,7 @@ end;
 procedure TForm1.Page16BeforeShow(ASender: TObject; ANewPage: TPage;
   ANewIndex: Integer);
 begin
-     Form1.Constraints.MinHeight:=221;
+     Form1.Constraints.MinHeight:=240;
 end;
 
 procedure TForm1.Page16Resize(Sender: TObject);
