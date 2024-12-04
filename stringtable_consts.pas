@@ -5,7 +5,6 @@ Unit stringtable_consts;
 Interface
 
 { Library information section }
-
 const LIBINFO_EN_LANGNAME=          001;
 const LIBINFO_LANGUAGE=             002;
 const LIBINFO_FORVERSION=           003;
@@ -13,7 +12,6 @@ const LIBINFO_CREATEDBY=            004;
 const LIBINFO_CREATIONDATE=         005;
 
 { Information section }
-
 const INFO_PREVIOUSSERVER=          101;
 const INFO_OK=                      102;
 const INFO_USERCREATED=             103;
@@ -30,7 +28,6 @@ const INFO_NOTEUNLOCKED=            113;
 const INFO_SERVERCHANGED=           114;
 
 { Question section }
-
 const QUESTION_UNSAVEDCHANGES=      201;
 const QUESTION_DELETEACCOUNT=       202;
 const QUESTION_CHANGECREDENTIALS=   203;
@@ -39,7 +36,6 @@ const QUESTION_DELETENOTE=          205;
 const QUESTION_WANTLOGOUT=          206;
 
 { Error section }
-
 const ERROR_NOHELPFILE=             301;
 const ERROR_FILLFORMS=              302;
 const ERROR_PROVIDEPASSWORD=        303;
@@ -64,7 +60,6 @@ const ERROR_WRONGREQUEST=           321;
 const ERROR_UNKNOWNCODE=            322;
 
 { Label section }
-
 const LABEL_CONNECTIONCHECKERROR=   401;
 const LABEL_CONNECTIONCHECKOK=      402;
 const LABEL_REGISTEREDSUCCESSFULLY= 403;
@@ -140,7 +135,6 @@ const LABEL_LANGLIBDATE=            472;
 const LABEL_COMPRESSION=            473;
 
 { Button section }
-
 const BUTTON_ADD=                   501;
 const BUTTON_UPDATE=                502;
 const BUTTON_LOCK=                  503;
