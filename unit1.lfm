@@ -1592,7 +1592,7 @@ object Form1: TForm1
         Width = 224
         Alignment = taRightJustify
         AutoSize = False
-        Caption = '05.11.2021 - 03.12.2024'
+        Caption = '05.11.2021 - 04.12.2024'
         ParentColor = False
       end
       object Label82: TLabel

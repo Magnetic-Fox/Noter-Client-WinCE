@@ -365,7 +365,7 @@ Var informationPreviousServer, infoOK, infoUserCreated, infoUserUpdated,
     buttonAdd, buttonUpdate, buttonLock, buttonUnlock, enLangName, langName,
     forVersion, createdBy, creationDate, noQuestions, someQuestions,
     allQuestions, langLibInfo, langLibAuthor, langLibDate,
-    emailCopied: utf8string;
+    emailCopied, helpFileStr: utf8string;
 
 Implementation
 
@@ -412,7 +412,7 @@ begin
           zw:='';
           For i:=0 to 1024 do zw:=zw+' ';
           z:=PWideChar(zw);
-          If SHGetShortcutTarget(helpFile,z,1024) then
+          If SHGetShortcutTarget(PWideChar(widestring(UTF8ToAnsi(helpFileStr))),z,1024) then
           begin
                zw:=z;
                delete(zw,1,1);
@@ -997,6 +997,8 @@ begin
      Form1.Button33.Caption:=     LoadResourceString(Lib, BUTTON_APPLY);
      Form1.Button34.Caption:=     LoadResourceString(Lib, BUTTON_CANCEL);
      Form1.Button36.Caption:=     LoadResourceString(Lib, BUTTON_BACK2);
+
+     helpFileStr:=                LoadResourceString(Lib, HELPFILE);
 end;
 
 Procedure loadLocaleStrings(libName: {$IFDEF LCLWinCE}widestring{$ELSE}string{$ENDIF});

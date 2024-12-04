@@ -6,9 +6,6 @@ Interface
 
 { Constants }
 
-{ Files }
-const helpFile=                    '\Windows\Help\Noter Client.lnk';
-
 { Additional codes }
 const emptyImage=                  -10240;
 const connecting=                  10240;

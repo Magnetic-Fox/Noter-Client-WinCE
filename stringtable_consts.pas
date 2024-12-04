@@ -155,6 +155,9 @@ const BUTTON_MESSAGES=              517;
 const BUTTON_APPLY=                 518;
 const BUTTON_BACK2=                 519;
 
+{ Additional }
+const HELPFILE=                     600;
+
 Implementation
 
 End.
